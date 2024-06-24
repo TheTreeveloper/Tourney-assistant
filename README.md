@@ -7,3 +7,10 @@ I'm in the process of learning now.
 
 # Workflow
 - Mobile first approach
+- Figma
+- React
+
+# Objective
+- Input requirements : Stats include Kills, Events, Damage, Accuracy
+- Output expected : Total kills, Total Events, Average Damage, Average Accuracy compiled in a tabular
+  format.
