@@ -58,8 +58,8 @@ th {
 }
 
 .button {
-    width: 10rem;
-    height: 3.5rem;
+    width: auto;
+    height: 3rem;
     border-radius: 0.5rem;
     border: none;
     background-color: #92140C;
@@ -67,8 +67,10 @@ th {
     color: white;
     font-size: 1.5rem;
     font-weight: 700;
+    padding: 1rem;
     cursor: pointer;
 }
+
 
 /* dark blue 041538 
     ABc yellow e0ad06
