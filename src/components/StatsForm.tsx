@@ -116,7 +116,7 @@ function StatsForm() {
         {/* Form Section Container */}
         <section className={styles.form_container}>
           <div className={styles.header}>
-            <img src="/assets/ABR.PNG" alt="ABC logo" />
+            <img src="./assets/images/ABR.PNG" alt="ABC logo" />
             <h1>ABC Tourney Assistant</h1>
           </div>
 
