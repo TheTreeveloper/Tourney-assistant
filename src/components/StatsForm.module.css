@@ -7,11 +7,43 @@
 }
 
 .input {
-    width: 20rem;
+    width: 15rem;
     height: 3rem;
     padding-left: 1rem;
     border-radius: 0.5rem;
     font-size: 1.5rem;
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+}
+
+p {
+    color: white;
+    font-size: 1rem;  
+    font-weight: 400;
+}
+
+tr {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: space-evenly;
+    gap: 1.5rem;
+    color: white;
+}
+
+th {
+    font-size: 1.5rem;
+    font-weight: 500;
 }
 
 .button {
@@ -19,12 +51,23 @@
     height: 3.5rem;
     border-radius: 0.5rem;
     border: none;
-    background-color: rgb(23, 23, 162);
+    background-color: #92140C;
+    box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
     color: white;
     font-size: 1.5rem;
+    font-weight: 700;
     cursor: pointer;
 }
 
+/* dark blue 041538 
+    ABc yellow e0ad06
+*/
+
 .button:hover{
-    background-color: cornflowerblue;
+    background-color: #e0ad06;
+    color: black;
+}
+
+.kills {
+    
 }

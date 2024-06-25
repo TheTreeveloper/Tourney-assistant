@@ -128,7 +128,7 @@ function StatsForm() {
           {...register("clanName")}
         />
 
-        <div>
+        <div className={styles.kills}>
           <h2>Kills</h2>
           {killFields.map((field, index) => (
             <div key={field.id} className={styles.killInput}>
@@ -218,7 +218,7 @@ function StatsForm() {
       <h2>Player Statistics</h2>
 
       <div>
-        <label>Sort by: </label>
+        <label>Sort: </label>
         <select onChange={(e) => setSortKey(e.target.value)}>
           <option value="totalKills">Total Kills</option>
           <option value="killsPerEvent">Kills per Event</option>
