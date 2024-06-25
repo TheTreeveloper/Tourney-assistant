@@ -111,154 +111,177 @@ function StatsForm() {
 
   return (
     <div>
-      <div className={styles.header}>
-        <img src="./public/assets/ABR.PNG" alt="ABC logo" />
-        <h1>ABC Tourney Assistant</h1>
-      </div>
+      {/* Section for container */}
+      <section className={styles.container}>
+        {/* Form Section Container */}
+        <section className={styles.form_container}>
+          <div className={styles.header}>
+            <img src="./public/assets/ABR.PNG" alt="ABC logo" />
+            <h1>ABC Tourney Assistant</h1>
+          </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <input
-          type="text"
-          placeholder="Player name"
-          className={styles.input}
-          {...register("playerName")}
-        />
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+            <input
+              type="text"
+              placeholder="Player name"
+              className={styles.input}
+              {...register("playerName")}
+            />
 
-        <input
-          type="text"
-          placeholder="Clan Name"
-          className={styles.input}
-          {...register("clanName")}
-        />
+            <input
+              type="text"
+              placeholder="Clan Name"
+              className={styles.input}
+              {...register("clanName")}
+            />
 
-        <div className={styles.kills}>
-          <h2>Kills</h2>
-          {killFields.map((field, index) => (
-            <div key={field.id} className={styles.killInput}>
-              <input
-                type="number"
-                placeholder={`Kill ${index + 1}`}
-                className={styles.input}
-                {...register(`kills.${index}.value`)}
-              />
-              <button type="button" onClick={() => removeKill(index)}>
-                Remove
+            <div className={styles.kills}>
+              <h2>Kills</h2>
+              {killFields.map((field, index) => (
+                <div key={field.id} className={styles.killInput}>
+                  <input
+                    type="number"
+                    placeholder={`Kill ${index + 1}`}
+                    className={styles.input}
+                    {...register(`kills.${index}.value`)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeKill(index)}
+                    className={styles.remove}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => appendKill({ value: "" })}
+                className={styles.button}
+              >
+                Add Kill
               </button>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => appendKill({ value: "" })}
-            className={styles.button}
-          >
-            Add Kill
-          </button>
-        </div>
 
-        <div>
-          <h2>Damage</h2>
-          {damageFields.map((field, index) => (
-            <div key={field.id} className={styles.damageInput}>
-              <input
-                type="number"
-                step="0.01"
-                placeholder={`Damage ${index + 1}`}
-                className={styles.input}
-                {...register(`damages.${index}.value`)}
-              />
-              <button type="button" onClick={() => removeDamage(index)}>
-                Remove
+            <div>
+              <h2>Damage</h2>
+              {damageFields.map((field, index) => (
+                <div key={field.id} className={styles.damageInput}>
+                  <input
+                    type="number"
+                    step="0.01"
+                    placeholder={`Damage ${index + 1}`}
+                    className={styles.input}
+                    {...register(`damages.${index}.value`)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeDamage(index)}
+                    className={styles.remove}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => appendDamage({ value: "" })}
+                className={styles.button}
+              >
+                Add Damage
               </button>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => appendDamage({ value: "" })}
-            className={styles.button}
-          >
-            Add Damage
-          </button>
-        </div>
 
-        <div>
-          <h2>Accuracy</h2>
-          {accuracyFields.map((field, index) => (
-            <div key={field.id} className={styles.accuracyInput}>
-              <input
-                type="number"
-                step="0.01"
-                placeholder={`Accuracy ${index + 1}`}
-                className={styles.input}
-                {...register(`accuracies.${index}.value`)}
-              />
-              <button type="button" onClick={() => removeAccuracy(index)}>
-                Remove
+            <div>
+              <h2>Accuracy</h2>
+              {accuracyFields.map((field, index) => (
+                <div key={field.id} className={styles.accuracyInput}>
+                  <input
+                    type="number"
+                    step="0.01"
+                    placeholder={`Accuracy ${index + 1}`}
+                    className={styles.input}
+                    {...register(`accuracies.${index}.value`)}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeAccuracy(index)}
+                    className={styles.remove}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => appendAccuracy({ value: "" })}
+                className={styles.button}
+              >
+                Add Accuracy
               </button>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={() => appendAccuracy({ value: "" })}
-            className={styles.button}
-          >
-            Add Accuracy
-          </button>
-        </div>
 
-        <div>
-          <h2>Events</h2>
-          <input
-            type="number"
-            placeholder="Number of Events"
-            className={styles.input}
-            {...register("events")}
-          />
-        </div>
+            <div>
+              <h2>Events</h2>
+              <input
+                type="number"
+                placeholder="Number of Events"
+                className={styles.input}
+                {...register("events")}
+              />
+            </div>
 
-        <button type="submit" className={styles.button}>
-          Submit
-        </button>
-      </form>
+            <button type="submit" className={styles.button}>
+              Submit
+            </button>
+          </form>
+        </section>
 
-      <h2>Player Statistics</h2>
+        {/* Table Section */}
+        <section className={styles.table_section}>
+          <h2>Player Statistics</h2>
 
-      <div>
-        <label>Sort: </label>
-        <select onChange={(e) => setSortKey(e.target.value)}>
-          <option value="totalKills">Total Kills</option>
-          <option value="killsPerEvent">Kills per Event</option>
-          <option value="averageDamage">Average Damage</option>
-          <option value="averageAccuracy">Average Accuracy</option>
-        </select>
-        <button onClick={() => sortPlayers(sortKey)} className={styles.button}>
-          Sort
-        </button>
-      </div>
-
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Player Name</th>
-            <th>Clan Name</th>
-            <th>Total Kills</th>
-            <th>Kills per Event</th>
-            <th>Average Damage</th>
-            <th>Average Accuracy</th>
-          </tr>
-        </thead>
-        <tbody>
-          {players.map((player, index) => (
-            <tr key={index}>
-              <td>{player.playerName}</td>
-              <td>{player.clanName}</td>
-              <td>{player.totalKills}</td>
-              <td>{player.killsPerEvent}</td>
-              <td>{player.averageDamage}</td>
-              <td>{player.averageAccuracy}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div>
+            <label>Sort: </label>
+            <select onChange={(e) => setSortKey(e.target.value)}>
+              <option value="totalKills">Total Kills</option>
+              <option value="killsPerEvent">Kills per Event</option>
+              <option value="averageDamage">Average Damage</option>
+              <option value="averageAccuracy">Average Accuracy</option>
+            </select>
+            <button
+              onClick={() => sortPlayers(sortKey)}
+              className={styles.button}
+            >
+              Sort
+            </button>
+          </div>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Player Name</th>
+                <th>Clan Name</th>
+                <th>Total Kills</th>
+                <th>Kills per Event</th>
+                <th>Average Damage</th>
+                <th>Average Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              {players.map((player, index) => (
+                <tr key={index}>
+                  <td>{player.playerName}</td>
+                  <td>{player.clanName}</td>
+                  <td>{player.totalKills}</td>
+                  <td>{player.killsPerEvent}</td>
+                  <td>{player.averageDamage}</td>
+                  <td>{player.averageAccuracy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </section>
     </div>
   );
 }
