@@ -68,8 +68,8 @@ table {
 tr {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between;
-    align-items: space-evenly; */
+    justify-content: space-between;
+    align-items: space-evenly; 
     gap: 1.5rem;
     color: white;
 }
