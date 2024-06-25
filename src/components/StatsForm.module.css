@@ -1,3 +1,11 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .header {
     display: flex;
     align-items: center;
@@ -43,16 +51,25 @@ p {
     font-weight: 400;
 }
 
+/* ----Table Section---- */
+
+.table_section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
 table {
-    width: 3rem;
+    width: auto;
     border: 0.1rem solid #e0ad06;
 }
 
 tr {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: space-evenly;
+    /* justify-content: space-between;
+    align-items: space-evenly; */
     gap: 1.5rem;
     color: white;
 }
@@ -77,6 +94,17 @@ th {
     cursor: pointer;
 }
 
+.remove {
+    width: auto;
+    height: 2rem;
+    margin: 0.5rem 0;
+    padding: 0 2rem ;
+    border-radius: 0.5rem;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
 
 /* dark blue 041538 
     ABc yellow e0ad06
@@ -92,20 +120,43 @@ th {
 }
 
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 1024px) {
+    .container {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 4rem;
+    }
+
     .header {
-        gap: 2rem;
+        gap: 1rem;
     }
 
     h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .header img {
         width: 5rem;
     }
+    .table_section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    table {
+        width: 50rem;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: row;
+        color: white;
+    }
 
     th {
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 }
