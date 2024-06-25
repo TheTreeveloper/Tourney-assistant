@@ -1,9 +1,10 @@
 import "./App.css";
+import StatsForm from "./components/StatsForm";
 
 function App() {
   return (
     <div>
-      <h1>Welcome</h1>
+      <StatsForm />
     </div>
   );
 }
