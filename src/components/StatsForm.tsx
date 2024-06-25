@@ -251,7 +251,7 @@ function StatsForm() {
             </select>
             <button
               onClick={() => sortPlayers(sortKey)}
-              className={styles.button}
+              className={styles.sortbutton}
             >
               Sort
             </button>
@@ -282,6 +282,9 @@ function StatsForm() {
           </table>
         </section>
       </section>
+      <p className={styles.attribution}>
+        Property of the African Battle Royale Community, A.B.C.
+      </p>
     </div>
   );
 }
