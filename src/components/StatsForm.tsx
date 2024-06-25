@@ -161,6 +161,7 @@ function StatsForm() {
             <div key={field.id} className={styles.damageInput}>
               <input
                 type="number"
+                step="0.01"
                 placeholder={`Damage ${index + 1}`}
                 className={styles.input}
                 {...register(`damages.${index}.value`)}
@@ -185,6 +186,7 @@ function StatsForm() {
             <div key={field.id} className={styles.accuracyInput}>
               <input
                 type="number"
+                step="0.01"
                 placeholder={`Accuracy ${index + 1}`}
                 className={styles.input}
                 {...register(`accuracies.${index}.value`)}
