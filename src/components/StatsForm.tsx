@@ -112,7 +112,7 @@ function StatsForm() {
   return (
     <div>
       <div className={styles.header}>
-        <img src="/ABR.PNG" alt="" />
+        <img src="./public/ABR.PNG" alt="" />
         <h1>ABC Tourney Assistant</h1>
       </div>
 
