@@ -67,7 +67,7 @@ table {
 
 tr {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /* justify-content: space-between;
     align-items: space-evenly; */
     gap: 1.5rem;
@@ -78,6 +78,9 @@ th {
     font-size: 1rem;
     font-weight: 500;
 }
+
+
+
 
 .button {
     width: auto;
@@ -158,5 +161,12 @@ th {
 
     th {
         font-size: 1rem;
+    }
+
+    td {
+        font-size: 1.5rem;
+        font-weight: 400;
+        /* text-align: center;
+        margin-left: auto; */
     }
 }
