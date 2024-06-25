@@ -111,7 +111,10 @@ function StatsForm() {
 
   return (
     <div>
-      <h1>ABC Tourney Assistant</h1>
+      <div className={styles.header}>
+        <img src="./public/ABR.PNG" alt="" />
+        <h1>ABC Tourney Assistant</h1>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
         <input
