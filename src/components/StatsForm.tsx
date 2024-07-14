@@ -280,5 +280,52 @@ function StatsForm() {
         <section className={styles.table_section}>
           <h2>Player Statistics</h2>
 
-          <div>
-            <
+                <div>
+            <label>Sort: </label>
+            <select onChange={(e) => setSortKey(e.target.value)}>
+              <option value="totalKills">Total Kills</option>
+              <option value="killsPerEvent">Kills per Event</option>
+              <option value="averageDamage">Average Damage</option>
+              <option value="averageAccuracy">Average Accuracy</option>
+            </select>
+            <button
+              onClick={() => sortPlayers(sortKey)}
+              className={styles.sortbutton}
+            >
+              Sort
+            </button>
+          </div>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Player Name</th>
+                <th>Clan Name</th>
+                <th>Total Kills</th>
+                <th>Kills per Event</th>
+                <th>Average Damage</th>
+                <th>Average Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              {players.map((player, index) => (
+                <tr key={index}>
+                  <td>{player.playerName}</td>
+                  <td>{player.clanName}</td>
+                  <td>{player.totalKills}</td>
+                  <td>{player.killsPerEvent}</td>
+                  <td>{player.averageDamage}</td>
+                  <td>{player.averageAccuracy}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      </section>
+      <p className={styles.attribution}>
+        Property of the African Battle Royale Community, A.B.C.
+      </p>
+    </div>
+  );
+}
+
+export default StatsForm;
