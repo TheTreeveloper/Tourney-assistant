@@ -3,7 +3,7 @@ import { useForm, useFieldArray } from "react-hook-form";
 import styles from "./StatsForm.module.css";
 
 function StatsForm() {
-  const { register, control, handleSubmit, watch, reset } = useForm();
+  const { register, control, handleSubmit, watch, setValue, reset } = useForm();
   const playerName = watch("playerName");
   const clanName = watch("clanName");
   const kills = watch("kills") || [];
@@ -13,6 +13,7 @@ function StatsForm() {
 
   const [players, setPlayers] = useState([]);
   const [sortKey, setSortKey] = useState("totalKills");
+  const [editingIndex, setEditingIndex] = useState(null);
 
   // Set up useFieldArray for kills
   const {
@@ -73,29 +74,21 @@ function StatsForm() {
     const averageAccuracy = calculateAverageAccuracy(accuracies);
     const killsPerEvent = events > 0 ? (totalKills / events).toFixed(2) : 0;
 
-    const existingPlayerIndex = players.findIndex(
-      (player) => player.playerName === data.playerName && player.clanName === data.clanName
-    );
-
-    if (existingPlayerIndex !== -1) {
+    if (editingIndex !== null) {
       // Update existing player
       const updatedPlayer = {
-        ...players[existingPlayerIndex],
-        totalKills: players[existingPlayerIndex].totalKills + totalKills,
-        averageDamage: (
-          (players[existingPlayerIndex].averageDamage * players[existingPlayerIndex].events + totalKills) /
-          (players[existingPlayerIndex].events + events)
-        ).toFixed(2),
-        averageAccuracy: (
-          (players[existingPlayerIndex].averageAccuracy * players[existingPlayerIndex].events + averageAccuracy) /
-          (players[existingPlayerIndex].events + events)
-        ).toFixed(2),
-        events: players[existingPlayerIndex].events + events,
+        ...players[editingIndex],
+        totalKills: totalKills,
+        killsPerEvent,
+        averageDamage: averageDamage.toFixed(2),
+        averageAccuracy: averageAccuracy.toFixed(2),
+        events,
       };
 
       const updatedPlayers = [...players];
-      updatedPlayers[existingPlayerIndex] = updatedPlayer;
+      updatedPlayers[editingIndex] = updatedPlayer;
       setPlayers(updatedPlayers);
+      setEditingIndex(null);
     } else {
       // Add new player
       const newPlayer = {
@@ -146,6 +139,21 @@ function StatsForm() {
   const sortPlayers = (key) => {
     const sortedPlayers = [...players].sort((a, b) => b[key] - a[key]);
     setPlayers(sortedPlayers);
+  };
+
+  // Function to edit a player's stats
+  const editPlayer = (index) => {
+    const player = players[index];
+    setValue("playerName", player.playerName);
+    setValue("clanName", player.clanName);
+    setValue("events", player.events);
+    setEditingIndex(index);
+  };
+
+  // Function to clear the table
+  const clearTable = () => {
+    setPlayers([]);
+    localStorage.removeItem("players");
   };
 
   return (
@@ -280,7 +288,7 @@ function StatsForm() {
         <section className={styles.table_section}>
           <h2>Player Statistics</h2>
 
-                <div>
+          <div>
             <label>Sort: </label>
             <select onChange={(e) => setSortKey(e.target.value)}>
               <option value="totalKills">Total Kills</option>
@@ -295,6 +303,7 @@ function StatsForm() {
               Sort
             </button>
           </div>
+
           <table className={styles.table}>
             <thead>
               <tr>
@@ -304,6 +313,7 @@ function StatsForm() {
                 <th>Kills per Event</th>
                 <th>Average Damage</th>
                 <th>Average Accuracy</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -315,10 +325,31 @@ function StatsForm() {
                   <td>{player.killsPerEvent}</td>
                   <td>{player.averageDamage}</td>
                   <td>{player.averageAccuracy}</td>
+                  <td>
+                    <button
+                      onClick={() => editPlayer(index)}
+                      className={styles.editButton}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => {
+                        const updatedPlayers = players.filter((_, i) => i !== index);
+                        setPlayers(updatedPlayers);
+                      }}
+                      className={styles.deleteButton}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
+
+          <button onClick={clearTable} className={styles.clearButton}>
+            Clear Table
+          </button>
         </section>
       </section>
       <p className={styles.attribution}>
@@ -329,3 +360,5 @@ function StatsForm() {
 }
 
 export default StatsForm;
+
+             
