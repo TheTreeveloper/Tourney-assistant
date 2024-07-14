@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import styles from "./StatsForm.module.css";
 
@@ -44,6 +44,17 @@ function StatsForm() {
     name: "accuracies",
   });
 
+  // Load players from local storage when the component mounts
+  useEffect(() => {
+    const storedPlayers = JSON.parse(localStorage.getItem("players")) || [];
+    setPlayers(storedPlayers);
+  }, []);
+
+  // Save players to local storage whenever players state changes
+  useEffect(() => {
+    localStorage.setItem("players", JSON.stringify(players));
+  }, [players]);
+
   // Function to handle form submission
   const onSubmit = (data) => {
     if (
@@ -62,16 +73,44 @@ function StatsForm() {
     const averageAccuracy = calculateAverageAccuracy(accuracies);
     const killsPerEvent = events > 0 ? (totalKills / events).toFixed(2) : 0;
 
-    const newPlayer = {
-      playerName: data.playerName,
-      clanName: data.clanName,
-      totalKills,
-      killsPerEvent,
-      averageDamage: averageDamage.toFixed(2),
-      averageAccuracy: averageAccuracy.toFixed(2),
-    };
+    const existingPlayerIndex = players.findIndex(
+      (player) => player.playerName === data.playerName && player.clanName === data.clanName
+    );
 
-    setPlayers([...players, newPlayer]);
+    if (existingPlayerIndex !== -1) {
+      // Update existing player
+      const updatedPlayer = {
+        ...players[existingPlayerIndex],
+        totalKills: players[existingPlayerIndex].totalKills + totalKills,
+        averageDamage: (
+          (players[existingPlayerIndex].averageDamage * players[existingPlayerIndex].events + totalKills) /
+          (players[existingPlayerIndex].events + events)
+        ).toFixed(2),
+        averageAccuracy: (
+          (players[existingPlayerIndex].averageAccuracy * players[existingPlayerIndex].events + averageAccuracy) /
+          (players[existingPlayerIndex].events + events)
+        ).toFixed(2),
+        events: players[existingPlayerIndex].events + events,
+      };
+
+      const updatedPlayers = [...players];
+      updatedPlayers[existingPlayerIndex] = updatedPlayer;
+      setPlayers(updatedPlayers);
+    } else {
+      // Add new player
+      const newPlayer = {
+        playerName: data.playerName,
+        clanName: data.clanName,
+        totalKills,
+        killsPerEvent,
+        averageDamage: averageDamage.toFixed(2),
+        averageAccuracy: averageAccuracy.toFixed(2),
+        events,
+      };
+
+      setPlayers([...players, newPlayer]);
+    }
+
     reset(); // Reset form after submission
   };
 
@@ -242,51 +281,4 @@ function StatsForm() {
           <h2>Player Statistics</h2>
 
           <div>
-            <label>Sort: </label>
-            <select onChange={(e) => setSortKey(e.target.value)}>
-              <option value="totalKills">Total Kills</option>
-              <option value="killsPerEvent">Kills per Event</option>
-              <option value="averageDamage">Average Damage</option>
-              <option value="averageAccuracy">Average Accuracy</option>
-            </select>
-            <button
-              onClick={() => sortPlayers(sortKey)}
-              className={styles.sortbutton}
-            >
-              Sort
-            </button>
-          </div>
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Player Name</th>
-                <th>Clan Name</th>
-                <th>Total Kills</th>
-                <th>Kills per Event</th>
-                <th>Average Damage</th>
-                <th>Average Accuracy</th>
-              </tr>
-            </thead>
-            <tbody>
-              {players.map((player, index) => (
-                <tr key={index}>
-                  <td>{player.playerName}</td>
-                  <td>{player.clanName}</td>
-                  <td>{player.totalKills}</td>
-                  <td>{player.killsPerEvent}</td>
-                  <td>{player.averageDamage}</td>
-                  <td>{player.averageAccuracy}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-      </section>
-      <p className={styles.attribution}>
-        Property of the African Battle Royale Community, A.B.C.
-      </p>
-    </div>
-  );
-}
-
-export default StatsForm;
+            <
